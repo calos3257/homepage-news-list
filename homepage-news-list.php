@@ -68,7 +68,7 @@ class HomepageNewsList extends WP_Widget {
         $display_rows    = $instance['display_rows'];
         $MoreButtonUrl   = $instance['MoreButtonUrl'];
         $font_size       = $instance['font_size'];
-        $category_filter = ( !empty($instance['category_filter']) ? get_categories(['include' => $instance['category_filter']]) : [] );
+        $category_filter = ( !empty($instance['category_filter']) ? get_categories(['include' => $instance['category_filter'], 'hide_empty' => 0, 'type' => 'post']) : [] );
 
         global $wp_query;
         $paged = (int)get_query_var('page') + (int)get_query_var('paged');
@@ -78,10 +78,9 @@ class HomepageNewsList extends WP_Widget {
             'posts_per_page'   => $display_rows,
             'offset'           => $display_rows * ($paged - 1),
             'paged'            => $paged,
-            'orderby'          => 'post_date',
-            'order'            => 'DESC',
             'post_type'        => 'post',
             'post_status'      => 'publish',
+            'ignore_sticky_posts' => 0,
         ];
 
         if ( isset($_GET['inc_cat']) ) {
@@ -89,6 +88,10 @@ class HomepageNewsList extends WP_Widget {
         } else {
             $_GET['inc_cat'] = null;
         }
+
+        $debug['paged'] = $paged;
+        $debug['instance'] = $instance;
+        $debug['query_vars'] = $query_vars;
 
         $wp_query = new WP_Query($query_vars);
         ?>
@@ -135,7 +138,7 @@ class HomepageNewsList extends WP_Widget {
                         </a><!-- .hnl_permalink -->
                     <?php endwhile; ?>
                 <?php else: ?>
-                    Not have exists posts.
+                    Not have exists post.
                 <?php endif; ?>
                 </div>
                 <?php
@@ -149,6 +152,12 @@ class HomepageNewsList extends WP_Widget {
                 <a class="hnl_more-button_bottom-right" href="<?= $MoreButtonUrl; ?>">More</a>
             <?php endif; ?>
         </div><!-- .hnl_block --><?php
+
+        /*
+        echo '<pre style="display: block; margin-top:50px;">';
+        print_r( $debug );
+        echo '</pre>';
+         */
 
         $wp_query = $tmp_wp_query;
 
@@ -217,7 +226,7 @@ class HomepageNewsList extends WP_Widget {
             <tr>
                 <td>分類過濾</td>
                 <td>
-                <?php $categories = get_categories(); $field_id = $this->get_field_id('category_filter'); $field_name = $this->get_field_name('category_filter'); ?>
+                <?php $categories = get_categories(['hide_empty' => 0,'type' => 'post']); $field_id = $this->get_field_id('category_filter'); $field_name = $this->get_field_name('category_filter'); ?>
                 <?php foreach ( $categories as $key => $value ): ?>
                     <input type="checkbox"
                            id="<?= $field_id . '-' . $key; ?>"

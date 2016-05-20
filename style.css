@@ -23,7 +23,7 @@ div.hnl_block .hnl_block-title {
 }
 
 .hnl_block-title_area-2 a {
-    display: block;
+    display: inline-block;
     margin: 4px 16px 0 0;
 }
 
