@@ -1,8 +1,8 @@
 <?php
 /* Plugin Name: Homepage News List
- * Plugin URI: http://blog.calos.org
- * Description: Show posts as list at home page.
- * Version: 1.0 Beta
+ * Plugin URI: https://github.com/calos3257/homepage-news-list
+ * Description: Show posts as list.
+ * Version: 1.0.0 Beta
  * Author: Calos
  * Author URI: http://blog.calos.org
  */
@@ -12,11 +12,11 @@ class HomepageNewsList extends WP_Widget {
         register_activation_hook( __FILE__, array($this, 'plugin_activated' ));
         register_deactivation_hook( __FILE__, array($this, 'plugin_deactivated' ));
 
-        $widget_options = array(
+        $widget_options = [
             'classname'   => 'HomepageNewsList',
             'description' => 'Show posts as list at home page.',
-        );
-        $this->WP_Widget(false, 'Home Page News List', $widget_options);
+        ];
+        parent::__construct('home-page-news-list', 'Home Page News List', $widget_options);
     }
 
     public function plugin_activated(){
@@ -66,7 +66,7 @@ class HomepageNewsList extends WP_Widget {
         $page_permalink = get_the_permalink();
 
         $display_rows    = $instance['display_rows'];
-        $MoreButtonUrl   = $instance['MoreButtonUrl'];
+        $MoreButtonUrl   = ( !empty($instance['MoreButtonUrl']) ? $instance['MoreButtonUrl'] : '#' );
         $font_size       = $instance['font_size'];
         $category_filter = ( !empty($instance['category_filter']) ? get_categories(['include' => $instance['category_filter'], 'hide_empty' => 0, 'type' => 'post']) : [] );
 
@@ -128,17 +128,17 @@ class HomepageNewsList extends WP_Widget {
                             <div <?= post_class('hnl_news-row-outer'); ?>>
                                 <div class="hnl_news-row-inner">
                                     <div class="hnl_post-category">[<?= get_the_category()[0]->name; ?>]</div>
-                                    <div class="hnl_post-title">
-                                        <?php if ( (null == $_GET['inc_cat']) && (1 === $paged) && is_sticky() ) echo '【置頂】'; ?>
-                                        <?= the_title(); ?>
-                                    </div>
+                                    <div class="hnl_post-title"><?php
+                                        if ( (null == $_GET['inc_cat']) && (1 === $paged) && is_sticky() ) echo '【置頂】';
+                                        the_title();
+                                    ?></div>
                                     <div class="hnl_post-date"><?= the_time('Y-m-d'); ?></div>
                                 </div><!-- .hnl_news-row-inner -->
                             </div><!-- .hnl_news-row-outer -->
                         </a><!-- .hnl_permalink -->
                     <?php endwhile; ?>
                 <?php else: ?>
-                    Not have exists post.
+                    <p>目前沒有可以顯示的文章。</p>
                 <?php endif; ?>
                 </div>
                 <?php
@@ -151,20 +151,15 @@ class HomepageNewsList extends WP_Widget {
             <?php if ( isset($instance['display_MoreButton']) && ( 2 === $instance['display_MoreButton'] ) ): ?>
                 <a class="hnl_more-button_bottom-right" href="<?= $MoreButtonUrl; ?>">More</a>
             <?php endif; ?>
-        </div><!-- .hnl_block --><?php
-
-        /*
-        echo '<pre style="display: block; margin-top:50px;">';
-        print_r( $debug );
-        echo '</pre>';
-         */
+        </div><!-- .hnl_block -->
+        <?php
 
         $wp_query = $tmp_wp_query;
 
         return true;
     }
 
-    function form($instance) { ?>
+    function form( $instance ) { ?>
         <table>
             <tr>
                 <td>標題</td>
@@ -201,6 +196,7 @@ class HomepageNewsList extends WP_Widget {
                         type="checkbox"
                         value="1"
                         <?= ( 1 == $instance['display_PageNavBar'] ? ' checked' : '' ); ?> />
+                    <small style="color:#888888; margin-left:4em;">需要安裝並啟用外掛「<a target="_blank" href="//wordpress.org/plugins/wp-pagenavi/">WP PageNavi</a>」才能正常顯示。</small>
                 </td>
             </tr>
             <tr>

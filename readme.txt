@@ -16,5 +16,9 @@ Stable tag:
 
 == Changelog ==
 
+= 1.0.0-Beta =
+* Use __construect() to replace old function WP_Widget().
+* Add notice for enable WP PageNavi.
+
 = 1.0.0-alpha =
 1.0.0-alpha version.
