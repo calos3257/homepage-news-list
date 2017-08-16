@@ -49,6 +49,7 @@ class HomepageNewsList extends WP_Widget {
             'MoreButtonUrl'      => '',
             'font_size'          => 14,
             'category_filter'    => '',
+            'theme'              => 'default',
         ];
 
         foreach ( $instance_default as $key => $value ) {
@@ -60,7 +61,14 @@ class HomepageNewsList extends WP_Widget {
     }
 
     public function widget($args, $instance) {
-        wp_enqueue_style('hnl-stylesheet', plugins_url('style.css', __FILE__), array());
+        $instance['theme'] = strtolower($instance['theme']);
+        $stylesheet_path = plugin_dir_path( __FILE__ ) . '/css/' . $instance['theme'] . '.css';
+        $stylesheet_url  = plugins_url('css/default.css', __FILE__);
+        if ( file_exists( $stylesheet_path ) ) {
+            $stylesheet_url = plugins_url('css/' . $instance['theme'] . '.css', __FILE__);
+        }
+        // wp_enqueue_style('hnl-stylesheet', plugins_url('css/default.css', __FILE__), array());
+        wp_enqueue_style('hnl-stylesheet', $stylesheet_url, array());
 
         $instance = $this->instance_filter($instance);
         $page_permalink = get_the_permalink();
@@ -78,10 +86,9 @@ class HomepageNewsList extends WP_Widget {
             'posts_per_page'   => $display_rows,
             'offset'           => $display_rows * ($paged - 1),
             'paged'            => $paged,
-            'orderby'          => 'post_date',
-            'order'            => 'DESC',
             'post_type'        => 'post',
             'post_status'      => 'publish',
+            'ignore_sticky_posts' => 0,
         ];
 
         if ( isset($_GET['inc_cat']) ) {
@@ -89,6 +96,10 @@ class HomepageNewsList extends WP_Widget {
         } else {
             $_GET['inc_cat'] = null;
         }
+
+        $debug['paged'] = $paged;
+        $debug['instance'] = $instance;
+        $debug['query_vars'] = $query_vars;
 
         $wp_query = new WP_Query($query_vars);
         ?>
@@ -107,7 +118,7 @@ class HomepageNewsList extends WP_Widget {
             <?php $category_filter = array_merge([ (object)['cat_ID' => null, 'name' => '全部'] ], $category_filter); ?>
             <div class="hnl_category-filter">
                 <ul class="hnl_category-list">
-                    <li class="hnl_category-list-item">分類：</a>
+                    <!-- <li class="hnl_category-list-item">分類：</a> -->
                 <?php foreach ( $category_filter as $key => $value ): ?>
                     <li class="hnl_category-list-item<?php if ( $_GET['inc_cat'] == $value->cat_ID ) echo ' hnl_category-current'; ?>"><a href="<?php
                         echo esc_url( add_query_arg('inc_cat', $value->cat_ID, $page_permalink) );
@@ -150,6 +161,12 @@ class HomepageNewsList extends WP_Widget {
             <?php endif; ?>
         </div><!-- .hnl_block --><?php
 
+        /*
+        echo '<pre style="display: block; margin-top:50px;">';
+        print_r( $debug );
+        echo '</pre>';
+         */
+
         $wp_query = $tmp_wp_query;
 
         return true;
@@ -163,7 +180,8 @@ class HomepageNewsList extends WP_Widget {
                     <input id="<?= $this->get_field_id('title'); ?>"
                         name="<?= $this->get_field_name('title'); ?>"
                         type="text"
-                        value="<?= $instance['title']; ?>" />
+                        value="<?= $instance['title']; ?>"
+                        style="width:400px;" />
                 </td>
             </tr>
             <tr>
@@ -211,7 +229,7 @@ class HomepageNewsList extends WP_Widget {
                         name="<?= $this->get_field_name('MoreButtonUrl'); ?>"
                         type="text"
                         value="<?= $instance['MoreButtonUrl']; ?>"
-                        style="width:360px;" />
+                        style="width:400px;" />
                 </td>
             </tr>
             <tr>
@@ -227,6 +245,16 @@ class HomepageNewsList extends WP_Widget {
                     <label for="<?= $field_id . '-' . $key; ?>"><?= $value->cat_name; ?></label>
                     <br>
                 <?php endforeach; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>樣式</td>
+                <td>
+                    <select id="<?= $this->get_field_id('theme'); ?>" name="<?= $this->get_field_name('theme'); ?>">
+                    <?php $item_options = ['Default', 'Block']; foreach ( $item_options as $key => $value ): ?>
+                        <option value="<?= $value; ?>"<?= ( $value == $instance['theme'] ? ' selected' : '' ); ?>><?= $value; ?></option>
+                    <?php endforeach; ?>
+                    </select>
                 </td>
             </tr>
         </table>
@@ -265,6 +293,10 @@ class HomepageNewsList extends WP_Widget {
 
         if ( ! empty( $new_instance['category_filter'] ) ) {
             $instance['category_filter'] = implode(',', $new_instance['category_filter']);
+        }
+
+        if ( ! empty( $new_instance['theme'] ) ) {
+            $instance['theme'] = $new_instance['theme'];
         }
 
         return $instance;
