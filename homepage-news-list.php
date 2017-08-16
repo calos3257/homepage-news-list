@@ -2,9 +2,9 @@
 /* Plugin Name: Homepage News List
  * Plugin URI: https://github.com/calos3257/homepage-news-list
  * Description: Show posts as list.
- * Version: 1.0.0 Beta
+ * Version: 1.0.0-beta
  * Author: Calos
- * Author URI: http://blog.calos.org
+ * Author URI: http://blog.caloskao.org
  */
 
 class HomepageNewsList extends WP_Widget {
