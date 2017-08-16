@@ -2,7 +2,6 @@
     text-decoration: none;
 }
 
-
 div.hnl_block .hnl_block-title {
     display: -webkit-flex;
     display:         flex;
@@ -75,7 +74,8 @@ div.hnl_block .hnl_block-title {
 /* --- Loops Block --- */
 .hnl_news-loops .hnl_permalink {
     display: block;
-    padding: 5px 15px;
+    padding: 2px 15px;
+    border-bottom: 1px solid #eeeeee;
 }
 
 .hnl_news-loops > div > a:nth-child(odd) {
@@ -118,6 +118,22 @@ div.hnl_block .hnl_block-title {
     -webkit-flex: 1;
             flex: 1;
     padding: 0 10px;
+
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
 }
 
 .hnl_post-date {
