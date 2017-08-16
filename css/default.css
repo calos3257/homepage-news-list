@@ -86,12 +86,6 @@ div.hnl_block .hnl_block-title {
     background-color: transparent;
 }
 
-/*
-.hnl_news-loops .hnl_permalink:hover {
-    background-color: #eeeeee;
-}
-*/
-
 .hnl_news-loops .sticky {
     color: #de212a;
 }
@@ -102,7 +96,6 @@ div.hnl_block .hnl_block-title {
 }
 
 .hnl_news-row-inner {
-    /* background-color: #eeeeee; */
     display: -webkit-flex;
     display:         flex;
     margin: 1px auto;
@@ -114,7 +107,6 @@ div.hnl_block .hnl_block-title {
 }
 
 .hnl_post-title {
-    /* display: inline-block; */
     -webkit-flex: 1;
             flex: 1;
     padding: 0 10px;
@@ -137,7 +129,6 @@ div.hnl_block .hnl_block-title {
 }
 
 .hnl_post-date {
-    /* display: inline-block; */
     -webkit-flex: none;
             flex: none;
     vertical-align: top;
@@ -147,7 +138,6 @@ div.hnl_block .hnl_block-title {
 .hnl_block .wp-pagenavi {
     padding: 10px 0 10px !important;
 }
-
 
 @media ( max-width: 768px ) {
     .hnl_news-loops > div > a:nth-child(even),
@@ -166,7 +156,6 @@ div.hnl_block .hnl_block-title {
 
     .hnl_post-category {
         border-radius: 0;
-        /* background-color: rgba(192, 192, 192, 0.4); */
     }
 
     .hnl_post-date {
@@ -180,6 +169,4 @@ div.hnl_block .hnl_block-title {
     .hnl_post-title {
         padding: 4px 10px;
     }
-
-
 }

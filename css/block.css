@@ -2,7 +2,6 @@
     text-decoration: none;
 }
 
-
 div.hnl_block .hnl_block-title {
     display: -webkit-flex;
     display:         flex;
@@ -78,7 +77,6 @@ div.hnl_block .hnl_block-title {
     padding: 0;
     margin-bottom: 10px;
 }
-
 
 .hnl_news-loops .hnl_permalink:hover {
     background-color: #eeeeee;

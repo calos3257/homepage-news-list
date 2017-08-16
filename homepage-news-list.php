@@ -2,6 +2,7 @@
 /* Plugin Name: Homepage News List
  * Plugin URI: https://github.com/calos3257/homepage-news-list
  * Description: Show posts as list.
+ * Version: 1.0.0-beta.2
  * Author: Calos
  * Author URI: http://blog.caloskao.org
  */
@@ -66,7 +67,6 @@ class HomepageNewsList extends WP_Widget {
         if ( file_exists( $stylesheet_path ) ) {
             $stylesheet_url = plugins_url('css/' . $instance['theme'] . '.css', __FILE__);
         }
-        // wp_enqueue_style('hnl-stylesheet', plugins_url('css/default.css', __FILE__), array());
         wp_enqueue_style('hnl-stylesheet', $stylesheet_url, array());
 
         $instance = $this->instance_filter($instance);
