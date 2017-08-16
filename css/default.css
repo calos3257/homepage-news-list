@@ -1,0 +1,172 @@
+.hnl_block a {
+    text-decoration: none;
+}
+
+div.hnl_block .hnl_block-title {
+    display: -webkit-flex;
+    display:         flex;
+}
+
+.hnl_block-title .hnl_block-title_area-1 {
+    float: left;
+    width: 80%;
+}
+
+.hnl_block-title .hnl_block-title_area-2 {
+    float: right;
+    width: 20%;
+    text-align: right;
+}
+
+.hnl_block-title_area-1 h3 {
+    margin: 0 0 10px;
+}
+
+.hnl_block-title_area-2 a {
+    display: inline-block;
+    margin: 4px 16px 0 0;
+}
+
+.hnl_more-button_top-right {
+}
+
+.hnl_more-button_bottom-right {
+    float: right;
+    margin-top: 4px;
+}
+
+
+/* --- Category Filter Block --- */
+.hnl_category-filter {
+    margin: 0 auto 5px;
+}
+
+.hnl_category-list {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+}
+
+.hnl_category-list .hnl_category-list-item {
+    float: left;
+    list-style: none;
+    margin: 0;
+}
+
+.hnl_category-list .hnl_category-list-item a {
+    display: inline-block;
+    padding: 0px 10px;
+    color: #222222;
+    border-bottom: 2px solid #bbbbbb;
+}
+
+.hnl_category-list .hnl_category-list-item a:hover {
+    color: #ff6600;
+    border-bottom-color: #ff6600;
+}
+
+.hnl_category-list .hnl_category-current a,
+.hnl_category-list .hnl_category-current a:hover {
+    color: #007acc;
+    border-bottom-color: #007acc;
+}
+
+/* --- Loops Block --- */
+.hnl_news-loops .hnl_permalink {
+    display: block;
+    padding: 2px 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.hnl_news-loops > div > a:nth-child(odd) {
+    background-color: rgba(192, 192, 192, 0.25);
+}
+
+.hnl_news-loops > div > a:nth-child(even) {
+    background-color: transparent;
+}
+
+.hnl_news-loops .sticky {
+    color: #de212a;
+}
+
+.hnl_news-loops .sticky:hover {
+    background-color: transparent;
+    color: #ff6600;
+}
+
+.hnl_news-row-inner {
+    display: -webkit-flex;
+    display:         flex;
+    margin: 1px auto;
+}
+
+.hnl_post-category {
+    -webkit-flex: none;
+            flex: none;
+}
+
+.hnl_post-title {
+    -webkit-flex: 1;
+            flex: 1;
+    padding: 0 10px;
+
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.hnl_post-date {
+    -webkit-flex: none;
+            flex: none;
+    vertical-align: top;
+    text-align: center;
+}
+
+.hnl_block .wp-pagenavi {
+    padding: 10px 0 10px !important;
+}
+
+@media ( max-width: 768px ) {
+    .hnl_news-loops > div > a:nth-child(even),
+    .hnl_news-loops > div > a:nth-child(odd) {
+        /* background-color: transparent; */
+    }
+
+    .hnl_news-loops .hnl_permalink {
+        padding: 6px 0;
+    }
+
+    .hnl_news-row-inner {
+        display: block;
+        position: relative;
+    }
+
+    .hnl_post-category {
+        border-radius: 0;
+    }
+
+    .hnl_post-date {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .hnl_post-category,
+    .hnl_post-date,
+    .hnl_post-title {
+        padding: 4px 10px;
+    }
+}

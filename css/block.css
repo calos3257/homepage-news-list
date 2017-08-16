@@ -74,14 +74,9 @@ div.hnl_block .hnl_block-title {
 /* --- Loops Block --- */
 .hnl_news-loops .hnl_permalink {
     display: block;
-    padding: 2px 15px;
-    border-bottom: 1px solid #eeeeee;
+    padding: 0;
+    margin-bottom: 10px;
 }
-
-.hnl_news-loops .hnl_permalink:last-child {
-    border-bottom-width: 0;
-}
-
 
 .hnl_news-loops .hnl_permalink:hover {
     background-color: #eeeeee;
@@ -97,48 +92,64 @@ div.hnl_block .hnl_block-title {
 }
 
 .hnl_news-row-inner {
-    /* background-color: #eeeeee; */
-    display: -webkit-flex;
-    display:         flex;
+    display: block;
     margin: 1px auto;
+    position: relative;
 }
 
 .hnl_post-category {
     -webkit-flex: none;
             flex: none;
+    border-radius: 4px 4px 0 0;
+    padding: 4px 10px;
+    color: #333;
 }
 
 .hnl_post-title {
     /* display: inline-block; */
     -webkit-flex: 1;
             flex: 1;
-    padding: 0 10px;
-
-    /* These are technically the same, but use both */
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-
-    -ms-word-break: break-all;
-    /* This is the dangerous one in WebKit, as it breaks things wherever */
-    word-break: break-all;
-    /* Instead use this non-standard one: */
-    word-break: break-word;
-
-    /* Adds a hyphen where the word breaks, if supported (No Blink) */
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
+    padding: 4px 10px;
+    border-radius: 0 0 4px 4px;
+    border: 1px solid #bbbbbb;
+    border-top-width: 0;
 }
 
 .hnl_post-date {
-    /* display: inline-block; */
     -webkit-flex: none;
             flex: none;
     vertical-align: top;
     text-align: center;
+    border-radius: 0 3px 0 0;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    padding: 4px 10px;
+}
+
+
+.hnl_post-category,
+.hnl_post-date {
+    background-color: #666666;
+    color: #fbfbfb;
+}
+
+.hnl_post-category {
+    border: 1px solid #666666;
+}
+
+.hnl_permalink:hover .hnl_post-category,
+.hnl_permalink:hover .hnl_post-date {
+    background-color: #999999;
+    border-color: #999999;
+    color: #333333;
+}
+
+.hnl_permalink:hover .hnl_post-title {
+    border-color: #666666;
 }
 
 .hnl_block .wp-pagenavi {
     padding: 10px 0 10px !important;
 }
+
