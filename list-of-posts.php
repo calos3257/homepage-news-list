@@ -1,10 +1,15 @@
 <?php
-/* Plugin Name: List of Posts
+
+/**
+ * Plugin Name: List of Posts
  * Plugin URI: https://github.com/caloskao/homepage-news-list
  * Description: Display the titles of wordpress articles in list form.
  * Version: 1.0.0
+ * Requires at least: 4.0.0
+ * Requires PHP: 7.0
  * Author: Calos Kao
- * Author URI: http://caloskao.org
+ * Author URI: https://caloskao.org
+ * Text Domain: list-of-posts
  */
 
 require_once __DIR__ . '/render.php';
