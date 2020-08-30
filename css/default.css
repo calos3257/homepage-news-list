@@ -72,16 +72,21 @@ div.hnl_block .hnl_block-title {
 
 /* --- Loops Block --- */
 .hnl_news-loops .hnl_permalink {
+    color        : #007acc;
     display      : block;
     padding      : 0.3rem 0.5rem;
     border-bottom: 1px solid #eeeeee;
 }
 
-.hnl_news-loops>div>a:nth-child(odd) {
+.hnl_news-loops .hnl_permalink:hover {
+    color: #ff6600;
+}
+
+.hnl_news-loops .hnl_posts-block a:nth-child(odd) {
     background-color: rgba(192, 192, 192, 0.25);
 }
 
-.hnl_news-loops>div>a:nth-child(even) {
+.hnl_news-loops .hnl_posts-block a:nth-child(even) {
     background-color: transparent;
 }
 
@@ -94,10 +99,19 @@ div.hnl_block .hnl_block-title {
     color           : #ff6600;
 }
 
+.hnl_news-sticky {
+    color: #ff6600;
+}
+
+.hnl_news-row-outer {
+    margin: 0;
+}
+
 .hnl_news-row-inner {
-    display: -webkit-flex;
-    display: flex;
-    margin : 1px auto;
+    display    : -webkit-flex;
+    display    : flex;
+    align-items: center;
+    margin     : 1px auto;
 }
 
 .hnl_post-category {
@@ -105,10 +119,29 @@ div.hnl_block .hnl_block-title {
     flex        : none;
 }
 
+.hnl_post-category-inner {
+    display         : inline-block;
+    padding         : 0.25em 0.4em;
+    font-size       : 75%;
+    font-weight     : 700;
+    line-height     : 1;
+    text-align      : center;
+    white-space     : nowrap;
+    vertical-align  : baseline;
+    border-radius   : 0.25rem;
+    transition      : color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    color           : #fff;
+    background-color: #007acc;
+}
+
+.hnl_news-loops .hnl_permalink:hover .hnl_post-category-inner {
+    background-color: #ff6600;
+}
+
 .hnl_post-title {
-    -webkit-flex: 1;
-    flex        : 1;
-    padding     : 0 10px;
+    -webkit-flex   : 1;
+    flex           : 1;
+    /* padding     : 0 10px; */
 
     /* These are technically the same, but use both */
     overflow-wrap: break-word;
@@ -134,14 +167,20 @@ div.hnl_block .hnl_block-title {
     text-align    : center;
 }
 
+.hnl_post-category,
+.hnl_post-date,
+.hnl_post-title {
+    padding: 0 6px;
+}
+
 .hnl_block .wp-pagenavi {
     padding: 10px 0 10px !important;
 }
 
 @media (max-width: 768px) {
 
-    .hnl_news-loops>div>a:nth-child(even),
-    .hnl_news-loops>div>a:nth-child(odd) {
+    .hnl_news-loops .hnl_posts-block a:nth-child(even),
+    .hnl_news-loops .hnl_posts-block a:nth-child(odd) {
         /* background-color: transparent; */
     }
 
@@ -169,4 +208,71 @@ div.hnl_block .hnl_block-title {
     .hnl_post-title {
         padding: 4px 10px;
     }
+}
+
+/**************** WP Paginavi ****************/
+
+.wp-pagenavi {
+    display        : -ms-flexbox;
+    display        : flex;
+    flex-wrap      : wrap;
+    justify-content: center;
+    padding-left   : 0;
+    list-style     : none;
+    border-radius  : 0.25rem;
+}
+
+.wp-pagenavi *,
+.wp-pagenavi *:visited {
+    position           : relative;
+    display            : block;
+    padding            : 0.5rem 0.75rem;
+    padding            : 0.25rem 0.5rem;
+    margin-left        : -1px;
+    /* line-height     : 1.25; */
+    line-height        : 1.5;
+    color              : #007acc;
+    background-color   : #fff;
+    border             : 1px solid #dee2e6;
+    font-size          : 0.875rem;
+}
+
+.wp-pagenavi *:hover {
+    z-index         : 2;
+    color           : #0056b3;
+    text-decoration : none;
+    background-color: #e9ecef;
+    border-color    : #dee2e6;
+}
+
+.wp-pagenavi *:focus {
+    z-index   : 3;
+    outline   : 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.wp-pagenavi *:first-child .wp-pagenavi * {
+    margin-left              : 0;
+    border-top-left-radius   : 0.2rem;
+    border-bottom-left-radius: 0.2rem;
+}
+
+.wp-pagenavi *:last-child .wp-pagenavi * {
+    border-top-right-radius   : 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+}
+
+.wp-pagenavi span.current {
+    z-index         : 3;
+    color           : #fff;
+    background-color: #007acc;
+    border-color    : #007acc;
+}
+
+.wp-pagenavi *.disabled .wp-pagenavi * {
+    color           : #6c757d;
+    pointer-events  : none;
+    cursor          : auto;
+    background-color: #fff;
+    border-color    : #dee2e6;
 }
