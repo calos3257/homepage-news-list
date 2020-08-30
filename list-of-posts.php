@@ -7,8 +7,6 @@
  * Author URI: http://caloskao.org
  */
 
-namespace CalosKao\ListOfPosts;
-
 require_once __DIR__ . '/render.php';
 
 class Core extends WP_Widget
@@ -18,8 +16,8 @@ class Core extends WP_Widget
     const WIDGET_SLUG = 'list-of-posts';
 
     const WIDGET_OPTIONS = [
-        'classname'   => 'CalosKao\ListOfPosts\Core',
-        'description' => 'Show posts as list.',
+        'classname'   => self::class,
+        'description' => 'Display the titles of wordpress articles in list form.',
     ];
 
     const DROPDOWN_OPTIONS = [
@@ -37,7 +35,7 @@ class Core extends WP_Widget
         'font_size'         => 14,
         'category_filter'   => '',
         'theme'             => 'default',
-        'display_format'    => 0,
+        'display_format'    => '分類/標題/日期',
     ];
 
     public function __construct()
@@ -134,11 +132,11 @@ class Core extends WP_Widget
     }
 }
 
-function ListOfPosts()
+function registerListOfPosts()
 {
     // 註冊小工具
-    register_widget('ListOfPosts');
+    register_widget(Core::class);
 }
 
-// 在小工具初始化的時候執行ListOfPosts function.
-add_action('widgets_init', 'ListOfPosts');
+// 在小工具初始化的時候執行 ListOfPosts function.
+add_action('widgets_init', 'registerListOfPosts');

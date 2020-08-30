@@ -1,7 +1,5 @@
 <?php
 
-namespace CalosKao\ListOfPosts;
-
 class Render
 {
     static function widget($instance, $wpQuery)
