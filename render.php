@@ -1,6 +1,8 @@
 <?php
 
-class HNLRender
+namespace CalosKao\ListOfPosts;
+
+class Render
 {
     static function widget($instance, $wpQuery)
     {
@@ -10,36 +12,36 @@ class HNLRender
         $moreButtonUrl  = (!empty($instance['more_button_url']) ? $instance['more_button_url'] : '#');
         $categoryFilter = (!empty($instance['category_filter']) ? get_categories(['include' => $instance['category_filter'], 'hide_empty' => 0, 'type' => 'post']) : []);
 ?>
-        <div class="hnl_block" style="font-size: <?= $fontSize; ?>px; line-height: <?= ($fontSize + 2); ?>px;">
-            <div class="hnl_block-title">
-                <div class="hnl_block-title_area-1">
+        <div class="lp-block" style="font-size: <?= $fontSize; ?>px; line-height: <?= ($fontSize + 2); ?>px;">
+            <div class="lp-block-title">
+                <div class="lp-block-title_area-1">
                     <h3 class="widget-title"><?= (isset($instance['title']) ? $instance['title'] : ''); ?></h3>
                 </div>
-                <div class="hnl_block-title_area-2">
+                <div class="lp-block-title_area-2">
                     <?php if (isset($instance['show_more_button']) && (1 === (int)$instance['show_more_button'])) : ?>
-                        <a class="hnl_more-button_top-right" href="<?= $moreButtonUrl; ?>">More</a>
+                        <a class="lp-more-button_top-right" href="<?= $moreButtonUrl; ?>">More</a>
                     <?php endif; ?>
                 </div>
-            </div><!-- .hnl_block-title -->
+            </div><!-- .lp-block-title -->
             <?php if (0 < count($categoryFilter)) : ?>
                 <?php $categoryFilter = array_merge([(object)['cat_ID' => null, 'name' => '全部']], $categoryFilter); ?>
-                <div class="hnl_category-filter">
-                    <ul class="hnl_category-list">
+                <div class="lp-category-filter">
+                    <ul class="lp-category-list">
                         <?php foreach ($categoryFilter as $value) : ?>
-                            <li class="hnl_category-list-item<?php if ($_GET['inc_cat'] ?? null == $value->cat_ID) echo ' hnl_category-current'; ?>">
+                            <li class="lp-category-list-item<?php if ($_GET['inc_cat'] ?? null == $value->cat_ID) echo ' lp-category-current'; ?>">
                                 <a href="<?= esc_url(add_query_arg('inc_cat', $value->cat_ID, $pagePermalink)); ?>"><?= $value->name; ?></a>
                             </li>
                         <?php endforeach; ?>
                     </ul>
-                </div><!-- .hnl_category-filter -->
+                </div><!-- .lp-category-filter -->
             <?php endif;
             ?>
-            <div class="hnl_news-loops">
+            <div class="lp-news-loops">
                 <?php if ($wpQuery->have_posts()) : ?>
-                    <div class="hnl_posts-block">
+                    <div class="lp-posts-block">
                         <?php if ($wpQuery->have_posts()) :
                             while ($wpQuery->have_posts()) : $wpQuery->the_post(); ?>
-                                <?= HNLRender::renderPostRow($instance) ?>
+                                <?= self::renderPostRow($instance) ?>
                             <?php endwhile; ?>
                         <?php else : ?>
                             <p>目前沒有可以顯示的文章。</p>
@@ -50,30 +52,30 @@ class HNLRender
                         wp_pagenavi(array('query' => $wpQuery));
                     }
                     ?>
-            </div><!-- .hnl_news-loops -->
+            </div><!-- .lp-news-loops -->
         <?php endif; ?>
         <?php if (isset($instance['show_more_button']) && (2 === $instance['show_more_button'])) : ?>
-            <a class="hnl_more-button_bottom-right" href="<?= $moreButtonUrl; ?>">More</a>
+            <a class="lp-more-button_bottom-right" href="<?= $moreButtonUrl; ?>">More</a>
         <?php endif; ?>
-        </div><!-- .hnl_block -->
+        </div><!-- .lp-block -->
     <?php
     }
 
     private static function renderPostRow($instance)
     {
-        $postClasses = ['hnl_news-row-outer'];
+        $postClasses = ['lp-news-row-outer'];
 
         // 置頂文章如在第一頁時就 highlight
         if (!is_paged() && is_sticky()) {
-            $postClasses[] = 'hnl_news-sticky';
+            $postClasses[] = 'lp-news-sticky';
         }
-    ?><a class="hnl_permalink" href="<?= the_permalink(); ?>">
+    ?><a class="lp-permalink" href="<?= the_permalink(); ?>">
             <div <?= post_class($postClasses); ?>>
-                <div class="hnl_news-row-inner">
+                <div class="lp-news-row-inner">
                     <?php self::renderPostTitle($instance) ?>
-                </div><!-- .hnl_news-row-inner -->
-            </div><!-- .hnl_news-row-outer -->
-        </a><!-- .hnl_permalink -->
+                </div><!-- .lp-news-row-inner -->
+            </div><!-- .lp-news-row-outer -->
+        </a><!-- .lp-permalink -->
     <?php
     }
 
@@ -106,8 +108,8 @@ class HNLRender
     private static function _category()
     {
     ?>
-        <div class="hnl_post-category">
-            <span class="hnl_post-category-inner"><?= get_the_category()[0]->name; ?></span>
+        <div class="lp-post-category">
+            <span class="lp-post-category-inner"><?= get_the_category()[0]->name; ?></span>
         </div>
     <?php
     }
@@ -115,14 +117,14 @@ class HNLRender
     private static function _title()
     {
     ?>
-        <div class="hnl_post-title"><?= get_the_title() ?></div>
+        <div class="lp-post-title"><?= get_the_title() ?></div>
     <?php
     }
 
     private static function _time()
     {
     ?>
-        <div class="hnl_post-date"><?= get_the_time('Y-m-d'); ?></div>
+        <div class="lp-post-date"><?= get_the_time('Y-m-d'); ?></div>
     <?php
     }
 

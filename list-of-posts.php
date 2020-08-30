@@ -1,22 +1,24 @@
 <?php
-/* Plugin Name: Homepage News List
+/* Plugin Name: List of Posts
  * Plugin URI: https://github.com/caloskao/homepage-news-list
- * Description: Show posts as list.
- * Version: 1.0.0-beta.2
- * Author: Calos
+ * Description: Display the titles of wordpress articles in list form.
+ * Version: 1.0.0
+ * Author: Calos Kao
  * Author URI: http://caloskao.org
  */
 
+namespace CalosKao\ListOfPosts;
+
 require_once __DIR__ . '/render.php';
 
-class HomepageNewsList extends WP_Widget
+class Core extends WP_Widget
 {
-    const WIDGET_NAME = 'Home Page News List';
+    const WIDGET_NAME = 'List of Posts';
 
-    const WIDGET_SLUG = 'home-page-news-list';
+    const WIDGET_SLUG = 'list-of-posts';
 
     const WIDGET_OPTIONS = [
-        'classname'   => 'HomepageNewsList',
+        'classname'   => 'CalosKao\ListOfPosts\Core',
         'description' => 'Show posts as list.',
     ];
 
@@ -52,9 +54,9 @@ class HomepageNewsList extends WP_Widget
         // This will run when the plugin is activated, setup the database
         /*
         if( $this->networkactive ) {
-            update_site_option('HomepageNewsList_enabled', 1);
+            update_site_option('ListOfPosts_enabled', 1);
         } else {
-            update_option('HomepageNewsList_enabled', 1);
+            update_option('ListOfPosts_enabled', 1);
         }
          */
     }
@@ -64,9 +66,9 @@ class HomepageNewsList extends WP_Widget
         // This will run when the plugin is deactivated, use to delete the database
         /*
         if( $this->networkactive ) {
-            update_site_option('HomepageNewsList_enabled', 0);
+            update_site_option('ListOfPosts_enabled', 0);
         } else {
-            update_option('HomepageNewsList_enabled', 0);
+            update_option('ListOfPosts_enabled', 0);
         }
          */
     }
@@ -85,8 +87,7 @@ class HomepageNewsList extends WP_Widget
         if (file_exists($stylesheetPath)) {
             $stylesheetUrl = plugins_url('css/' . $instance['theme'] . '.css', __FILE__);
         }
-        wp_enqueue_style('hnl-stylesheet', $stylesheetUrl, array());
-        // wp_enqueue_style('hnl-twbs', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css', []);
+        wp_enqueue_style('list-of-posts_stylesheet', $stylesheetUrl, array());
 
         $instance = $this->instance_filter($instance);
 
@@ -111,7 +112,7 @@ class HomepageNewsList extends WP_Widget
 
         $wpQuery = new WP_Query($queryVars);
 
-        HNLRender::widget($instance, $wpQuery);
+        Render::widget($instance, $wpQuery);
 
         $wpQuery = $tmpWpQuery;
 
@@ -120,7 +121,7 @@ class HomepageNewsList extends WP_Widget
 
     function form($instance)
     {
-        HNLRender::form($this, $instance);
+        Render::form($this, $instance);
     }
 
     function update($newInstance, $oldInstance)
@@ -133,11 +134,11 @@ class HomepageNewsList extends WP_Widget
     }
 }
 
-function HomepageNewsList()
+function ListOfPosts()
 {
     // 註冊小工具
-    register_widget('HomepageNewsList');
+    register_widget('ListOfPosts');
 }
 
-// 在小工具初始化的時候執行HomepageNewsList function.
-add_action('widgets_init', 'HomepageNewsList');
+// 在小工具初始化的時候執行ListOfPosts function.
+add_action('widgets_init', 'ListOfPosts');
