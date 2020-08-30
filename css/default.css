@@ -103,6 +103,10 @@ div.lp-block .lp-block-title {
     color: #ff6600;
 }
 
+.lp-news-sticky .lp-post-category-inner {
+    background-color: #ff6600;
+}
+
 .lp-news-row-outer {
     margin: 0;
 }

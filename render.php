@@ -26,7 +26,7 @@ class Render
                 <div class="lp-category-filter">
                     <ul class="lp-category-list">
                         <?php foreach ($categoryFilter as $value) : ?>
-                            <li class="lp-category-list-item<?php if ($_GET['inc_cat'] ?? null == $value->cat_ID) echo ' lp-category-current'; ?>">
+                            <li class="lp-category-list-item<?php if (($_GET['inc_cat'] ?? null) == $value->cat_ID) echo ' lp-category-current'; ?>">
                                 <a href="<?= esc_url(add_query_arg('inc_cat', $value->cat_ID, $pagePermalink)); ?>"><?= $value->name; ?></a>
                             </li>
                         <?php endforeach; ?>
@@ -128,7 +128,7 @@ class Render
 
     public static function form($widget, $instance)
     {
-        $instance = array_merge(HomepageNewsList::DEFAULT_OPTIONS, $instance);
+        $instance = array_merge(Core::DEFAULT_OPTIONS, $instance);
     ?>
         <table>
             <tr>
@@ -160,7 +160,7 @@ class Render
                 <td>顯示「More」連結</td>
                 <td>
                     <select id="<?= $widget->get_field_id('show_more_button'); ?>" name="<?= $widget->get_field_name('show_more_button'); ?>">
-                        <?php foreach (HomepageNewsList::DROPDOWN_OPTIONS['show_more_button'] as $key => $value) : ?>
+                        <?php foreach (Core::DROPDOWN_OPTIONS['show_more_button'] as $key => $value) : ?>
                             <option value="<?= $key; ?>" <?= ($key == $instance['show_more_button'] ? ' selected' : ''); ?>><?= $value; ?></option>
                         <?php endforeach; ?>
                     </select>
@@ -179,7 +179,7 @@ class Render
                     $field_id = $widget->get_field_id('category_filter');
                     $field_name = $widget->get_field_name('category_filter'); ?>
                     <?php foreach ($categories as $key => $value) : ?>
-                        <input type="checkbox" id="<?= $field_id . '-' . $key; ?>" name="<?= $field_name; ?>[]" value="<?= $value->cat_ID; ?>" <?= (in_array($value->cat_ID, explode(',', $instance['category_filter'])) ? ' checked' : ''); ?>>
+                        <input type="checkbox" id="<?= $field_id . '-' . $key; ?>" name="<?= $field_name; ?>[]" value="<?= $value->cat_ID; ?>" <?= (in_array($value->cat_ID, explode(',', is_string($instance['category_filter']))) ? ' checked' : ''); ?>>
                         <label for="<?= $field_id . '-' . $key; ?>"><?= $value->cat_name; ?></label>
                         <br>
                     <?php endforeach; ?>
@@ -189,7 +189,7 @@ class Render
                 <td>樣式</td>
                 <td>
                     <select id="<?= $widget->get_field_id('theme'); ?>" name="<?= $widget->get_field_name('theme'); ?>">
-                        <?php foreach (HomepageNewsList::DROPDOWN_OPTIONS['theme'] as $key => $value) : ?>
+                        <?php foreach (Core::DROPDOWN_OPTIONS['theme'] as $key => $value) : ?>
                             <option value="<?= $value; ?>" <?= ($value == $instance['theme'] ? ' selected' : ''); ?>><?= $value; ?></option>
                         <?php endforeach; ?>
                     </select>
@@ -199,7 +199,7 @@ class Render
                 <td>顯示格式</td>
                 <td>
                     <select id="<?= $widget->get_field_id('display_format'); ?>" name="<?= $widget->get_field_name('display_format'); ?>">
-                        <?php foreach (HomepageNewsList::DROPDOWN_OPTIONS['display_format'] as $key => $value) : ?>
+                        <?php foreach (Core::DROPDOWN_OPTIONS['display_format'] as $key => $value) : ?>
                             <option value="<?= $value; ?>" <?= ($value == $instance['display_format'] ? ' selected' : ''); ?>><?= $value; ?></option>
                         <?php endforeach; ?>
                     </select>

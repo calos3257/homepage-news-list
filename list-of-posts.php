@@ -126,7 +126,10 @@ class Core extends WP_Widget
     {
         $instance = array_merge(self::DEFAULT_OPTIONS, $newInstance);
         $instance['more_button_url'] = strip_tags(stripslashes($instance['more_button_url']));
-        $instance['category_filter'] = implode(',', $instance['category_filter']);
+        $instance['category_filter'] = implode(
+            ',',
+            is_array($instance['category_filter']) ? $instance['category_filter'] : []
+        );
 
         return $instance;
     }
