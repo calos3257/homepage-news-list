@@ -1,8 +1,8 @@
-=== Homepage News List ===
+=== List of Posts ===
 Tags: Homepage, widget, widgets, page, pages
 Requires at least: 4.0.0
-Tested up to: 4.8.1
-Stable tag: 
+Tested up to: 5.5
+Stable tag: 1.0.0
 
 == Description ==
 
@@ -15,6 +15,9 @@ Stable tag:
 == Frequently Asked Questions ==
 
 == Changelog ==
+
+= 1.0.0 =
+First released version.
 
 = 1.0.0-beta.2 =
 Add support themes.
